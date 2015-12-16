@@ -22,59 +22,37 @@ end
 
 
 class CompleteMe
+  attr_accessor :count
   attr_reader :root
 
   def initialize
     @root = Node.new
+    @count = 0
   end
 
   def insert(word, node=root, value = "")
-      if word.empty?
-        node.value = value
-        node.word = true
-      else
-    letter = word.shift
-    value += letter
-        if node.link[letter].nil?
-          node.link[letter] = Node.new
-          insert(word, node.link[letter], value)
-        else
-          insert(word, node.link[letter], value)
-        end
-      end
+    @count += 1
+    word = word.chars
+    add_word(word, node, value)
   end
 
-
-    # def insert(word, node=root)
-    #   word_array = word.chars
-    #   until word_array.empty?
-    #     letter = word_array.shift
-    #     value += letter
-    #       if word_array.empty?
-    #         node.value = value
-    #         node.word = true
-    #       else
-    #         if node.link[letter].nil?
-    #           node.link[letter] = Node.new
-    #           word = word_array.join
-    #           insert(word, node.link[letter])
-    #         else
-    #           word = word_array.join
-    #           insert(word, node.link[letter])
-    #         end
-    #       end
-    #     @root
-    #     binding.pry
-    #   end
-    # end
-
-
+  def add_word(word, node, value)
+    if word.empty?
+      node.value = value
+      node.word = true
+    else
+      letter = word.shift
+      value += letter
+      if node.link[letter].nil?
+        node.link[letter] = Node.new
+        add_word(word, node.link[letter], value)
+      else
+        add_word(word, node.link[letter], value)
+      end
+    end
+  end
 
   def suggest(word)
-
-  end
-
-  def count
 
   end
 
@@ -89,10 +67,11 @@ end
 
 completer = CompleteMe.new
 
-completer.insert("pizza".chars)
-completer.insert("apple".chars)
-completer.insert("pizzeria".chars)
+completer.insert("pizza")
+completer.insert("apple")
+completer.insert("pizzeria")
 puts completer.root.link
+puts completer.count
 # completer.insert("pizzeria")
 
 # dictionary = File.read("/usr/share/dict/words")
