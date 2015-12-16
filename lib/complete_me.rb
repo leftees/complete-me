@@ -14,6 +14,7 @@ class Node
     @link = link
     @word = word
     @weight = weight
+    @value = value
 
   end
 
@@ -30,7 +31,7 @@ class CompleteMe
     @count = 0
   end
 
-  def insert(word, node=root, value = "")
+  def insert(word, node=root, value="")
     @count += 1
     word = word.chars
     add_word(word, node, value)
@@ -52,7 +53,18 @@ class CompleteMe
     end
   end
 
-  def suggest(word)
+  def suggest(part_word, node=root)
+    part_word = part_word.chars
+    search_trie(part_word, node)
+  end
+
+  def search_trie(part_word, node)
+    part_word.each do |letter|
+      if node.link == letter
+        
+    end
+
+  def select
 
   end
 
@@ -65,13 +77,23 @@ class CompleteMe
 
 end
 
+
+
+
+if __FILE__ == $0
+
 completer = CompleteMe.new
 
 completer.insert("pizza")
 completer.insert("apple")
 completer.insert("pizzeria")
+completer.insert("aardvark")
+completer.insert("android")
+completer.insert("picker")
 puts completer.root.link
 puts completer.count
+
+end
 # completer.insert("pizzeria")
 
 # dictionary = File.read("/usr/share/dict/words")

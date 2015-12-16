@@ -15,22 +15,6 @@ class NodeTest < Minitest::Test
 
 end
 
-class TrieTest < Minitest::Test
-
-  def setup
-
-    @trie = Trie.new
-  end
-
-  def test_new_object_gets_created_in_the_Trie_class
-
-    assert_equal Trie, @trie.class
-  end
-
-  def test_
-end
-
-
 class CompleteMeTest < Minitest::Test
 
   def setup
@@ -44,13 +28,14 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_word_gets_inserted_to_the_trie_correctly
+    @completion.insert("apple")
 
     assert_equal 1, @completion.count
   end
 
   def test_correctly_tells_me_how_many_words_are_in_the_dictionary
-
+    skip
     assert_equal 235866, @completion.count
   end
-  
+
 end
