@@ -8,9 +8,9 @@ require 'pry'
 
 
 class Node
-  attr_accessor :link, :word, :weight
+  attr_accessor :link, :word, :weight, :value
 
-  def initialize( word=false, link={},  weight=0)
+  def initialize( word=false, link={},  weight=0, value="")
     @link = link
     @word = word
     @weight = weight
@@ -28,26 +28,46 @@ class CompleteMe
     @root = Node.new
   end
 
-  def insert(word, node=root)
-    word_array = word.chars
-    until word_array.empty?
-      letter = word_array.shift
-        if word_array.empty?
-          node.word = true
+  def insert(word, node=root, value = "")
+      if word.empty?
+        node.value = value
+        node.word = true
+      else
+    letter = word.shift
+    value += letter
+        if node.link[letter].nil?
+          node.link[letter] = Node.new
+          insert(word, node.link[letter], value)
         else
-          if node.link[letter].nil?
-            node.link[letter] = Node.new
-            word = word_array.join
-            insert(word, node.link[letter])
-          else
-            word = word_array.join
-            insert(word, node.link[letter])
-          end
+          insert(word, node.link[letter], value)
         end
-      @root
-      binding.pry
-    end
+      end
   end
+
+
+    # def insert(word, node=root)
+    #   word_array = word.chars
+    #   until word_array.empty?
+    #     letter = word_array.shift
+    #     value += letter
+    #       if word_array.empty?
+    #         node.value = value
+    #         node.word = true
+    #       else
+    #         if node.link[letter].nil?
+    #           node.link[letter] = Node.new
+    #           word = word_array.join
+    #           insert(word, node.link[letter])
+    #         else
+    #           word = word_array.join
+    #           insert(word, node.link[letter])
+    #         end
+    #       end
+    #     @root
+    #     binding.pry
+    #   end
+    # end
+
 
 
   def suggest(word)
@@ -69,8 +89,10 @@ end
 
 completer = CompleteMe.new
 
-completer.insert("pizza")
-completer.insert("apple")
-completer.insert("pizzeria")
+completer.insert("pizza".chars)
+completer.insert("apple".chars)
+completer.insert("pizzeria".chars)
+puts completer.root.link
+# completer.insert("pizzeria")
 
 # dictionary = File.read("/usr/share/dict/words")
