@@ -1,4 +1,4 @@
-source "https://ww.rubygems.org"
+source "https://www.rubygems.org"
 
 gem "mrspec"
 gem "pry"
