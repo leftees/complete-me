@@ -1,5 +1,5 @@
 engines:
-   duplication:
+ duplication:
     enabled: true
     config:
       languages:
